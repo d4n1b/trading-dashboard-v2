@@ -1,0 +1,15 @@
+{
+  "items": [
+    {
+      "ticker": "AAPL_US_EQ",
+      "reference": "0faf75ea-0dbb-4828-b5fa-3568221f79ce",
+      "quantity": 7.0,
+      "amount": 1.12,
+      "grossAmountPerShare": 0.24,
+      "amountInEuro": 1.312044,
+      "paidOn": "2023-08-17T13:38:13.000+03:00",
+      "type": "DIVIDENDS_PAID_BY_US_CORPORATIONS"
+    }
+  ],
+  "nextPagePath": "null"
+}

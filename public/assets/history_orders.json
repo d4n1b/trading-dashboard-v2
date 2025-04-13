@@ -1,0 +1,315 @@
+{
+  "items": [
+    {
+      "type": "MARKET",
+      "id": 14102003548,
+      "fillId": 14102003554,
+      "parentOrder": 14102003548,
+      "ticker": "U_US_EQ",
+      "orderedQuantity": 15.0,
+      "filledQuantity": 15.0,
+      "limitPrice": null,
+      "stopPrice": null,
+      "timeValidity": null,
+      "orderedValue": null,
+      "filledValue": null,
+      "executor": "WEB",
+      "dateModified": "2024-05-06T17:40:18.000Z",
+      "dateExecuted": null,
+      "dateCreated": "2024-05-06T17:40:15.000Z",
+      "fillResult": null,
+      "fillPrice": 25.27,
+      "fillCost": null,
+      "taxes": [
+        {
+          "fillId": "14102003554",
+          "name": "CURRENCY_CONVERSION_FEE",
+          "quantity": -0.45,
+          "timeCharged": "2024-05-06T17:40:18.420Z"
+        }
+      ],
+      "fillType": "OTC",
+      "status": "FILLED"
+    },
+    {
+      "type": "MARKET",
+      "id": 1992873868,
+      "fillId": 1992873872,
+      "parentOrder": 1992873868,
+      "ticker": "U_US_EQ",
+      "orderedQuantity": 5.0,
+      "filledQuantity": 5.0,
+      "limitPrice": null,
+      "stopPrice": null,
+      "timeValidity": null,
+      "orderedValue": null,
+      "filledValue": null,
+      "executor": "ANDROID",
+      "dateModified": "2022-07-28T13:48:39.000Z",
+      "dateExecuted": null,
+      "dateCreated": "2022-07-28T13:48:38.000Z",
+      "fillResult": null,
+      "fillPrice": 36.15,
+      "fillCost": null,
+      "taxes": [
+        {
+          "fillId": "1992873872",
+          "name": "CURRENCY_CONVERSION_FEE",
+          "quantity": -0.22,
+          "timeCharged": "2022-07-28T14:48:39.000Z"
+        }
+      ],
+      "fillType": "OTC",
+      "status": "FILLED"
+    },
+    {
+      "type": "MARKET",
+      "id": 1906855842,
+      "fillId": 1906855844,
+      "parentOrder": 1906855842,
+      "ticker": "U_US_EQ",
+      "orderedQuantity": 5.0,
+      "filledQuantity": 5.0,
+      "limitPrice": null,
+      "stopPrice": null,
+      "timeValidity": null,
+      "orderedValue": null,
+      "filledValue": null,
+      "executor": "ANDROID",
+      "dateModified": "2022-05-11T14:39:13.000Z",
+      "dateExecuted": null,
+      "dateCreated": "2022-05-11T14:39:12.000Z",
+      "fillResult": null,
+      "fillPrice": 33.52,
+      "fillCost": null,
+      "taxes": [
+        {
+          "fillId": "1906855844",
+          "name": "CURRENCY_CONVERSION_FEE",
+          "quantity": -0.2,
+          "timeCharged": "2022-05-11T15:39:13.000Z"
+        }
+      ],
+      "fillType": "OTC",
+      "status": "FILLED"
+    },
+    {
+      "type": "MARKET",
+      "id": 1902919648,
+      "fillId": 1902919650,
+      "parentOrder": 1902919648,
+      "ticker": "U_US_EQ",
+      "orderedQuantity": 3.0,
+      "filledQuantity": 3.0,
+      "limitPrice": null,
+      "stopPrice": null,
+      "timeValidity": null,
+      "orderedValue": null,
+      "filledValue": null,
+      "executor": "ANDROID",
+      "dateModified": "2022-05-09T13:52:35.000Z",
+      "dateExecuted": null,
+      "dateCreated": "2022-05-09T13:52:35.000Z",
+      "fillResult": null,
+      "fillPrice": 54.6,
+      "fillCost": null,
+      "taxes": [
+        {
+          "fillId": "1902919650",
+          "name": "CURRENCY_CONVERSION_FEE",
+          "quantity": -0.2,
+          "timeCharged": "2022-05-09T14:52:35.000Z"
+        }
+      ],
+      "fillType": "OTC",
+      "status": "FILLED"
+    },
+    {
+      "type": "MARKET",
+      "id": 1902911552,
+      "fillId": 1902911569,
+      "parentOrder": 1902911552,
+      "ticker": "U_US_EQ",
+      "orderedQuantity": 5.0,
+      "filledQuantity": 5.0,
+      "limitPrice": null,
+      "stopPrice": null,
+      "timeValidity": null,
+      "orderedValue": null,
+      "filledValue": null,
+      "executor": "ANDROID",
+      "dateModified": "2022-05-09T13:42:41.000Z",
+      "dateExecuted": null,
+      "dateCreated": "2022-05-09T13:42:40.000Z",
+      "fillResult": null,
+      "fillPrice": 55.81,
+      "fillCost": null,
+      "taxes": [
+        {
+          "fillId": "1902911569",
+          "name": "CURRENCY_CONVERSION_FEE",
+          "quantity": -0.34,
+          "timeCharged": "2022-05-09T14:42:41.000Z"
+        }
+      ],
+      "fillType": "OTC",
+      "status": "FILLED"
+    },
+    {
+      "type": "MARKET",
+      "id": 1695309222,
+      "fillId": 1695309266,
+      "parentOrder": 1695309222,
+      "ticker": "U_US_EQ",
+      "orderedQuantity": 2.0,
+      "filledQuantity": 2.0,
+      "limitPrice": null,
+      "stopPrice": null,
+      "timeValidity": null,
+      "orderedValue": null,
+      "filledValue": null,
+      "executor": "ANDROID",
+      "dateModified": "2021-12-01T19:09:19.000Z",
+      "dateExecuted": null,
+      "dateCreated": "2021-12-01T19:09:06.000Z",
+      "fillResult": null,
+      "fillPrice": 160.87,
+      "fillCost": null,
+      "taxes": [
+        {
+          "fillId": "1695309266",
+          "name": "CURRENCY_CONVERSION_FEE",
+          "quantity": -0.36,
+          "timeCharged": "2021-12-01T19:09:19.000Z"
+        }
+      ],
+      "fillType": "OTC",
+      "status": "FILLED"
+    },
+    {
+      "type": "MARKET",
+      "id": 1669484026,
+      "fillId": 1669484029,
+      "parentOrder": 1669484026,
+      "ticker": "U_US_EQ",
+      "orderedQuantity": 5.0,
+      "filledQuantity": 5.0,
+      "limitPrice": null,
+      "stopPrice": null,
+      "timeValidity": null,
+      "orderedValue": null,
+      "filledValue": null,
+      "executor": "ANDROID",
+      "dateModified": "2021-11-16T14:49:30.000Z",
+      "dateExecuted": null,
+      "dateCreated": "2021-11-16T14:49:29.000Z",
+      "fillResult": null,
+      "fillPrice": 190.7,
+      "fillCost": null,
+      "taxes": [
+        {
+          "fillId": "1669484029",
+          "name": "CURRENCY_CONVERSION_FEE",
+          "quantity": -1.07,
+          "timeCharged": "2021-11-16T14:49:30.000Z"
+        }
+      ],
+      "fillType": "OTC",
+      "status": "FILLED"
+    },
+    {
+      "type": "MARKET",
+      "id": 1662814434,
+      "fillId": 1662814438,
+      "parentOrder": 1662814434,
+      "ticker": "U_US_EQ",
+      "orderedQuantity": -9.0,
+      "filledQuantity": -9.0,
+      "limitPrice": null,
+      "stopPrice": null,
+      "timeValidity": null,
+      "orderedValue": null,
+      "filledValue": null,
+      "executor": "ANDROID",
+      "dateModified": "2021-11-11T14:33:19.000Z",
+      "dateExecuted": null,
+      "dateCreated": "2021-11-11T14:33:18.000Z",
+      "fillResult": null,
+      "fillPrice": 182.31,
+      "fillCost": null,
+      "taxes": [
+        {
+          "fillId": "1662814438",
+          "name": "CURRENCY_CONVERSION_FEE",
+          "quantity": -1.83,
+          "timeCharged": "2021-11-11T14:33:19.000Z"
+        }
+      ],
+      "fillType": "OTC",
+      "status": "FILLED"
+    },
+    {
+      "type": "MARKET",
+      "id": 1660714070,
+      "fillId": 1660714076,
+      "parentOrder": 1660714070,
+      "ticker": "U_US_EQ",
+      "orderedQuantity": 4.0,
+      "filledQuantity": 4.0,
+      "limitPrice": null,
+      "stopPrice": null,
+      "timeValidity": null,
+      "orderedValue": null,
+      "filledValue": null,
+      "executor": "ANDROID",
+      "dateModified": "2021-11-10T14:52:30.000Z",
+      "dateExecuted": null,
+      "dateCreated": "2021-11-10T14:52:30.000Z",
+      "fillResult": null,
+      "fillPrice": 176.98,
+      "fillCost": null,
+      "taxes": [
+        {
+          "fillId": "1660714076",
+          "name": "CURRENCY_CONVERSION_FEE",
+          "quantity": -0.79,
+          "timeCharged": "2021-11-10T14:52:30.000Z"
+        }
+      ],
+      "fillType": "OTC",
+      "status": "FILLED"
+    },
+    {
+      "type": "MARKET",
+      "id": 1592690157,
+      "fillId": 1592690161,
+      "parentOrder": 1592690157,
+      "ticker": "U_US_EQ",
+      "orderedQuantity": 5.0,
+      "filledQuantity": 5.0,
+      "limitPrice": null,
+      "stopPrice": null,
+      "timeValidity": null,
+      "orderedValue": null,
+      "filledValue": null,
+      "executor": "ANDROID",
+      "dateModified": "2021-10-11T16:32:27.000Z",
+      "dateExecuted": null,
+      "dateCreated": "2021-10-11T16:32:21.000Z",
+      "fillResult": null,
+      "fillPrice": 138.24,
+      "fillCost": null,
+      "taxes": [
+        {
+          "fillId": "1592690161",
+          "name": "CURRENCY_CONVERSION_FEE",
+          "quantity": -0.76,
+          "timeCharged": "2021-10-11T17:32:27.000Z"
+        }
+      ],
+      "fillType": "OTC",
+      "status": "FILLED"
+    }
+  ],
+  "nextPagePath": null
+}
