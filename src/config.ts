@@ -61,7 +61,7 @@ export const config = {
   },
 };
 
-export const contryMap = {
+export const countryMap = {
   CA: "Canada",
   US: "United States",
   IE: "Ireland",

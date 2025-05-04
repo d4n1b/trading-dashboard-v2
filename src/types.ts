@@ -1,6 +1,13 @@
 // Api
+export type User = {
+  id: number;
+  role: string;
+  username: string;
+};
+
 export type AuthResponse = {
   token: string;
+  user: User;
 };
 
 export type AccountApiResponseData = {
