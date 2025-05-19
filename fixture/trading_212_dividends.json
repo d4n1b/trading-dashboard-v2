@@ -1,0 +1,190 @@
+[
+  {
+    "accountId": 2,
+    "ticker": "AGNC",
+    "internalTicker": "AGNC_US_EQ",
+    "internalId": "a1aac2e6-dd61-4676-a61c-618d29775b54",
+    "quantity": 67.5,
+    "amount": 6.12,
+    "grossAmountPerShare": 0.12,
+    "paidOn": "2025-05-09T16:11:50.000+03:00",
+    "metadata": {
+      "amountInEuro": 6.12,
+      "type": "DIVIDEND_MANUFACTURED_PAYMENT"
+    }
+  },
+  {
+    "accountId": 2,
+    "ticker": "AGNC",
+    "internalTicker": "AGNC_US_EQ",
+    "internalId": "4dabdf9c-99d5-45e6-ba4d-1e6e890b72b6",
+    "quantity": 59.5,
+    "amount": 5.49,
+    "grossAmountPerShare": 0.12,
+    "paidOn": "2025-04-09T13:56:46.000+03:00",
+    "metadata": {
+      "amountInEuro": 5.49,
+      "type": "DIVIDEND_MANUFACTURED_PAYMENT"
+    }
+  },
+  {
+    "accountId": 2,
+    "ticker": "SLG",
+    "internalTicker": "SLG_US_EQ",
+    "internalId": "35881fda-7a20-4188-a98c-71598355c477",
+    "quantity": 18,
+    "amount": 3.51,
+    "grossAmountPerShare": 0.2575,
+    "paidOn": "2025-05-15T16:44:30.000+03:00",
+    "metadata": { "amountInEuro": 3.51, "type": "DIVIDEND" }
+  },
+  {
+    "accountId": 2,
+    "ticker": "SLG",
+    "internalTicker": "SLG_US_EQ",
+    "internalId": "69a3f813-4a9c-402f-8658-6ba3c53a3f3b",
+    "quantity": 18,
+    "amount": 3.47,
+    "grossAmountPerShare": 0.2575,
+    "paidOn": "2025-04-15T15:18:39.000+03:00",
+    "metadata": { "amountInEuro": 3.47, "type": "DIVIDEND" }
+  },
+  {
+    "accountId": 2,
+    "ticker": "AEDAS.MC",
+    "internalTicker": "AEDASe_EQ",
+    "internalId": "9e35d95f-473a-43c1-bb17-408a8b091105",
+    "quantity": 37.804494,
+    "amount": 34.02,
+    "grossAmountPerShare": 0.9,
+    "paidOn": "2024-12-30T15:42:46.000+02:00",
+    "metadata": { "amountInEuro": 34.02, "type": "TAX_EXEMPTED" }
+  },
+  {
+    "accountId": 2,
+    "ticker": "AEDAS.MC",
+    "internalTicker": "AEDASe_EQ",
+    "internalId": "cb26396b-4150-4542-b3ed-67d09eae4011",
+    "quantity": 36.261256,
+    "amount": 40.25,
+    "grossAmountPerShare": 1.11,
+    "paidOn": "2024-08-05T17:01:20.000+03:00",
+    "metadata": { "amountInEuro": 40.25, "type": "TAX_EXEMPTED" }
+  },
+  {
+    "accountId": 2,
+    "ticker": "INTC",
+    "internalTicker": "INTC_US_EQ",
+    "internalId": "64fee04f-606e-4bd5-9930-711e8c679e9b",
+    "quantity": 13,
+    "amount": 1.25,
+    "grossAmountPerShare": 0.125,
+    "paidOn": "2024-09-02T13:22:46.000+03:00",
+    "metadata": { "amountInEuro": 1.25, "type": "DIVIDEND" }
+  },
+  {
+    "accountId": 2,
+    "ticker": "VZ",
+    "internalTicker": "VZ_US_EQ",
+    "internalId": "63da33fb-3797-439a-9a98-c8c9d93e9243",
+    "quantity": 1.02823858,
+    "amount": 0.52,
+    "grossAmountPerShare": 0.6775,
+    "paidOn": "2025-05-01T13:26:32.000+03:00",
+    "metadata": {
+      "amountInEuro": 0.52,
+      "type": "DIVIDEND_MANUFACTURED_PAYMENT"
+    }
+  },
+  {
+    "accountId": 2,
+    "ticker": "VZ",
+    "internalTicker": "VZ_US_EQ",
+    "internalId": "40e59df8-25af-4be8-99a0-dfae08c1164a",
+    "quantity": 18.97176142,
+    "amount": 9.67,
+    "grossAmountPerShare": 0.6775,
+    "paidOn": "2025-05-01T13:26:32.000+03:00",
+    "metadata": { "amountInEuro": 9.67, "type": "DIVIDEND" }
+  },
+  {
+    "accountId": 2,
+    "ticker": "VZ",
+    "internalTicker": "VZ_US_EQ",
+    "internalId": "7653c7e1-d0d1-4ee5-a2ba-f16dc8bee5a7",
+    "quantity": 20,
+    "amount": 11.25,
+    "grossAmountPerShare": 0.6775,
+    "paidOn": "2025-02-03T15:16:52.000+02:00",
+    "metadata": { "amountInEuro": 11.25, "type": "DIVIDEND" }
+  },
+  {
+    "accountId": 2,
+    "ticker": "VZ",
+    "internalTicker": "VZ_US_EQ",
+    "internalId": "fe4e126f-a2b0-4df1-9843-f4305c073783",
+    "quantity": 20,
+    "amount": 10.59,
+    "grossAmountPerShare": 0.6775,
+    "paidOn": "2024-11-01T13:02:38.000+02:00",
+    "metadata": { "amountInEuro": 10.59, "type": "DIVIDEND" }
+  },
+  {
+    "accountId": 2,
+    "ticker": "VZ",
+    "internalTicker": "VZ_US_EQ",
+    "internalId": "28308f4b-ee4b-4087-866d-e271241f066d",
+    "quantity": 20,
+    "amount": 10.44,
+    "grossAmountPerShare": 0.665,
+    "paidOn": "2024-08-01T13:28:17.000+03:00",
+    "metadata": { "amountInEuro": 10.44, "type": "DIVIDEND" }
+  },
+  {
+    "accountId": 2,
+    "ticker": "VZ",
+    "internalTicker": "VZ_US_EQ",
+    "internalId": "43458dae-982c-45b4-8079-f40f9f6685fc",
+    "quantity": 20,
+    "amount": 10.61,
+    "grossAmountPerShare": 0.665,
+    "paidOn": "2024-05-01T11:51:19.000+03:00",
+    "metadata": { "amountInEuro": 10.61, "type": "DIVIDEND" }
+  },
+  {
+    "accountId": 2,
+    "ticker": "VZ",
+    "internalTicker": "VZ_US_EQ",
+    "internalId": "72f201dd-92ec-4f5f-bc93-654cc293ed4f",
+    "quantity": 20,
+    "amount": 10.46,
+    "grossAmountPerShare": 0.665,
+    "paidOn": "2024-02-01T12:33:37.000+02:00",
+    "metadata": { "amountInEuro": 10.46, "type": "DIVIDEND" }
+  },
+  {
+    "accountId": 2,
+    "ticker": "VZ",
+    "internalTicker": "VZ_US_EQ",
+    "internalId": "ee6a70e8-a979-4656-8ac8-4ed707e2db2b",
+    "quantity": 15,
+    "amount": 8.03,
+    "grossAmountPerShare": 0.665,
+    "paidOn": "2023-11-01T12:10:21.000+02:00",
+    "metadata": { "amountInEuro": 8.03, "type": "DIVIDEND" }
+  },
+  {
+    "accountId": 2,
+    "ticker": "VZ",
+    "internalTicker": "VZ_US_EQ",
+    "internalId": "e67d12d1-e63f-408f-b3a3-8572a37a8606",
+    "quantity": 10,
+    "amount": 5.06,
+    "grossAmountPerShare": 0.6525,
+    "paidOn": "2023-08-01T18:01:13.000+03:00",
+    "metadata": {
+      "amountInEuro": 5.06,
+      "type": "DIVIDENDS_PAID_BY_US_CORPORATIONS"
+    }
+  }
+]

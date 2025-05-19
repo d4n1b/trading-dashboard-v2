@@ -61,7 +61,7 @@ export const config = {
   },
 };
 
-export const contryMap = {
+export const countryMap = {
   CA: "Canada",
   US: "United States",
   IE: "Ireland",
@@ -126,13 +126,31 @@ export const shortNameTickerMap: Record<string, string> = {
   SGROl_EQ: "SGRO.L",
 };
 
-export const tickerGlobalFinvizMap: Record<string, string> = {
+export const Trading212ShortNameTickerMap: Record<string, string> = {
+  AEDASe_EQ: "AEDAS.MC",
+  AMZd_EQ: "AMZ.DE",
+  ASMLa_EQ: "ASML.AS",
+  BBOXl_EQ: "BBOX.L",
+  IBS_PT_EQ: "IBS.LS",
+  ICSUl_EQ: "ICSU.L",
+  INRGl_EQ: "INRG.L",
+  QDVEd_EQ: "QDVE.DE",
+  RIO_US_EQ: "RIO.L",
+  SGROl_EQ: "SGRO.L",
+};
+
+// Reverse mapping
+export const Trading212TickerShortNameMap: Record<string, string> =
+  Object.fromEntries(
+    Object.entries(Trading212ShortNameTickerMap).map(([key, value]) => [
+      value,
+      key,
+    ])
+  );
+
+export const tickerFinvizTickerMap: Record<string, string> = {
   "AEDAS.MC": "AEDAS",
   "AMZ.DE": "AMZN",
   "ASML.AS": "ASML",
   "RIO.L": "RIO",
-};
-
-export const instrumentCustomType = {
-  Delisted: "delisted",
 };

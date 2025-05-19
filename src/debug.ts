@@ -1,1 +1,1 @@
-export const debug = (...args: any[]) => console.info("Capybara:", ...args);
+export const debug = (...args: unknown[]) => console.info("Capybara:", ...args);

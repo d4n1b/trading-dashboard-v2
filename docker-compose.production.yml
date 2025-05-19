@@ -1,0 +1,26 @@
+version: "2.4"
+
+services:
+  web:
+    restart: unless-stopped
+    container_name: trading-dashboard-v2
+    env_file: .env
+    image: europe-west2-docker.pkg.dev/appshark-uk/appshark/trading-dashboard-v2:latest
+    ports:
+      - "5052:80"
+    environment:
+      PORT: 80
+      VIRTUAL_PORT: 5052
+      VIRTUAL_HOST: capybara.appshark.co.uk
+      LETSENCRYPT_HOST: capybara.appshark.co.uk
+      LETSENCRYPT_EMAIL: dan256_6@hotmail.com
+    mem_limit: 1024m
+    logging:
+      options:
+        max-size: "100m"
+        max-file: "3"
+
+networks:
+  default:
+    external:
+      name: webproxy

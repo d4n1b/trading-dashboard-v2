@@ -1,0 +1,155 @@
+diff --git a/node_modules/trading212-api/dist/src/api/history/HistoryAPI.d.ts b/node_modules/trading212-api/dist/src/api/history/HistoryAPI.d.ts
+index dc22764..33771b3 100644
+--- a/node_modules/trading212-api/dist/src/api/history/HistoryAPI.d.ts
++++ b/node_modules/trading212-api/dist/src/api/history/HistoryAPI.d.ts
+@@ -102,7 +102,7 @@ export declare class HistoryAPI {
+         timeValidity: "DAY" | "GTC" | null;
+     }, void, unknown>;
+     getPaidOutDividends(ticker?: string): AsyncGenerator<{
+-        type: "BONUS_MANUFACTURED_PAYMENT" | "BONUS" | "CAPITAL_GAINS_DISTRIBUTION_MANUFACTURED_PAYMENT" | "CAPITAL_GAINS_DISTRIBUTION_NON_US_MANUFACTURED_PAYMENT" | "CAPITAL_GAINS_DISTRIBUTION_NON_US" | "CAPITAL_GAINS_DISTRIBUTION" | "CAPITAL_GAINS_MANUFACTURED_PAYMENT" | "CAPITAL_GAINS" | "DEMERGER_MANUFACTURED_PAYMENT" | "DEMERGER" | "DIVIDEND" | "DIVIDENDS_PAID_BY_FOREIGN_CORPORATIONS_MANUFACTURED_PAYMENT" | "DIVIDENDS_PAID_BY_FOREIGN_CORPORATIONS" | "DIVIDENDS_PAID_BY_US_CORPORATIONS_MANUFACTURED_PAYMENT" | "DIVIDENDS_PAID_BY_US_CORPORATIONS" | "INTEREST_MANUFACTURED_PAYMENT" | "INTEREST_PAID_BY_FOREIGN_CORPORATIONS_MANUFACTURED_PAYMENT" | "INTEREST_PAID_BY_FOREIGN_CORPORATIONS" | "INTEREST_PAID_BY_US_OBLIGORS_MANUFACTURED_PAYMENT" | "INTEREST_PAID_BY_US_OBLIGORS" | "INTEREST" | "INTERIM_LIQUIDATION_MANUFACTURED_PAYMENT" | "INTERIM_LIQUIDATION" | "MULTIPLE_1042S_TAX_COMPONENTS_MANUFACTURED_PAYMENT" | "MULTIPLE_1042S_TAX_COMPONENTS" | "ORDINARY_MANUFACTURED_PAYMENT" | "ORDINARY" | "OTHER_DIVIDEND_EQUIVALENT_MANUFACTURED_PAYMENT" | "OTHER_DIVIDEND_EQUIVALENT" | "OTHER_INCOME_MANUFACTURED_PAYMENT" | "OTHER_INCOME" | "PROPERTY_INCOME_MANUFACTURED_PAYMENT" | "PROPERTY_INCOME" | "PTP_UNCHARACTERISED_INCOME_MANUFACTURED_PAYMENT" | "PTP_UNCHARACTERISED_INCOME" | "PUBLICLY_TRADED_PARTNERSHIP_DISTRIBUTION_MANUFACTURED_PAYMENT" | "PUBLICLY_TRADED_PARTNERSHIP_DISTRIBUTION" | "QUALIFIED_INVESTMENT_ENTITY_MANUFACTURED_PAYMENT" | "QUALIFIED_INVESTMENT_ENTITY" | "REAL_PROPERTY_INCOME_AND_NATURAL_RESOURCES_ROYALTIES_MANUFACTURED_PAYMENT" | "REAL_PROPERTY_INCOME_AND_NATURAL_RESOURCES_ROYALTIES" | "RETURN_OF_CAPITAL_MANUFACTURED_PAYMENT" | "RETURN_OF_CAPITAL_NON_US_MANUFACTURED_PAYMENT" | "RETURN_OF_CAPITAL_NON_US" | "RETURN_OF_CAPITAL" | "TAX_EVENT_1446F_FOR_PUBLICLY_TRADED_SECURITIES_MANUFACTURED_PAYMENT" | "TAX_EVENT_1446F_FOR_PUBLICLY_TRADED_SECURITIES" | "TRUST_DISTRIBUTION_MANUFACTURED_PAYMENT" | "TRUST_DISTRIBUTION";
++        type: "BONUS_MANUFACTURED_PAYMENT" | "BONUS" | "CAPITAL_GAINS_DISTRIBUTION_MANUFACTURED_PAYMENT" | "CAPITAL_GAINS_DISTRIBUTION_NON_US_MANUFACTURED_PAYMENT" | "CAPITAL_GAINS_DISTRIBUTION_NON_US" | "CAPITAL_GAINS_DISTRIBUTION" | "CAPITAL_GAINS_MANUFACTURED_PAYMENT" | "CAPITAL_GAINS" | "DEMERGER_MANUFACTURED_PAYMENT" | "DEMERGER" | "DIVIDEND" | "DIVIDENDS_PAID_BY_FOREIGN_CORPORATIONS_MANUFACTURED_PAYMENT" | "DIVIDENDS_PAID_BY_FOREIGN_CORPORATIONS" | "DIVIDENDS_PAID_BY_US_CORPORATIONS_MANUFACTURED_PAYMENT" | "DIVIDENDS_PAID_BY_US_CORPORATIONS" | "INTEREST_MANUFACTURED_PAYMENT" | "INTEREST_PAID_BY_FOREIGN_CORPORATIONS_MANUFACTURED_PAYMENT" | "INTEREST_PAID_BY_FOREIGN_CORPORATIONS" | "INTEREST_PAID_BY_US_OBLIGORS_MANUFACTURED_PAYMENT" | "INTEREST_PAID_BY_US_OBLIGORS" | "INTEREST" | "INTERIM_LIQUIDATION_MANUFACTURED_PAYMENT" | "INTERIM_LIQUIDATION" | "MULTIPLE_1042S_TAX_COMPONENTS_MANUFACTURED_PAYMENT" | "MULTIPLE_1042S_TAX_COMPONENTS" | "ORDINARY_MANUFACTURED_PAYMENT" | "ORDINARY" | "OTHER_DIVIDEND_EQUIVALENT_MANUFACTURED_PAYMENT" | "OTHER_DIVIDEND_EQUIVALENT" | "OTHER_INCOME_MANUFACTURED_PAYMENT" | "OTHER_INCOME" | "PROPERTY_INCOME_MANUFACTURED_PAYMENT" | "PROPERTY_INCOME" | "PTP_UNCHARACTERISED_INCOME_MANUFACTURED_PAYMENT" | "PTP_UNCHARACTERISED_INCOME" | "PUBLICLY_TRADED_PARTNERSHIP_DISTRIBUTION_MANUFACTURED_PAYMENT" | "PUBLICLY_TRADED_PARTNERSHIP_DISTRIBUTION" | "QUALIFIED_INVESTMENT_ENTITY_MANUFACTURED_PAYMENT" | "QUALIFIED_INVESTMENT_ENTITY" | "REAL_PROPERTY_INCOME_AND_NATURAL_RESOURCES_ROYALTIES_MANUFACTURED_PAYMENT" | "REAL_PROPERTY_INCOME_AND_NATURAL_RESOURCES_ROYALTIES" | "RETURN_OF_CAPITAL_MANUFACTURED_PAYMENT" | "RETURN_OF_CAPITAL_NON_US_MANUFACTURED_PAYMENT" | "RETURN_OF_CAPITAL_NON_US" | "RETURN_OF_CAPITAL" | "TAX_EVENT_1446F_FOR_PUBLICLY_TRADED_SECURITIES_MANUFACTURED_PAYMENT" | "TAX_EVENT_1446F_FOR_PUBLICLY_TRADED_SECURITIES" | "TRUST_DISTRIBUTION_MANUFACTURED_PAYMENT" | "TRUST_DISTRIBUTION" | "PROPERTY_INCOME_DISTRIBUTION" | "DIVIDEND_MANUFACTURED_PAYMENT" | "TAX_EXEMPTED";
+         ticker: string;
+         quantity: number;
+         amount: number;
+diff --git a/node_modules/trading212-api/dist/src/api/history/HistoryAPI.js b/node_modules/trading212-api/dist/src/api/history/HistoryAPI.js
+index b44fa72..948a397 100644
+--- a/node_modules/trading212-api/dist/src/api/history/HistoryAPI.js
++++ b/node_modules/trading212-api/dist/src/api/history/HistoryAPI.js
+@@ -86,6 +86,7 @@ export class HistoryAPI {
+         return getPageGenerator(this.apiClient, itemSchema, url, params);
+     }
+     getOrderData(ticker) {
++        throw new Error('Forbidden by user');
+         const params = ticker
+             ? new URLSearchParams({
+                 ticker,
+@@ -104,17 +105,20 @@ export class HistoryAPI {
+         return this.paginate(HistoryDividensSchema, resource, params);
+     }
+     async getExports() {
++        throw new Error('Forbidden by user');
+         const resource = HistoryAPI.URL.EXPORTS;
+         const response = await this.apiClient.get(resource);
+         return z.array(ExportSchema).parse(response.data);
+     }
+     async requestExport(request) {
++        throw new Error('Forbidden by user');
+         const resource = HistoryAPI.URL.EXPORTS;
+         const validated = RequestExportSchema.parse(request);
+         const response = await this.apiClient.post(resource, validated);
+         return RequestExportResponseSchema.parse(response.data);
+     }
+     getTransactions() {
++        throw new Error('Forbidden by user');
+         const resource = HistoryAPI.URL.TRANSACTIONS;
+         return this.paginate(TransactionSchema, resource);
+     }
+diff --git a/node_modules/trading212-api/dist/src/api/metadata/MetadataAPI.d.ts b/node_modules/trading212-api/dist/src/api/metadata/MetadataAPI.d.ts
+index 43d96fc..a829317 100644
+--- a/node_modules/trading212-api/dist/src/api/metadata/MetadataAPI.d.ts
++++ b/node_modules/trading212-api/dist/src/api/metadata/MetadataAPI.d.ts
+@@ -27,6 +27,6 @@ export declare class MetadataAPI {
+         minTradeQuantity: number;
+         ticker: string;
+         workingScheduleId: number;
+-        shortname?: string | undefined;
++        shortName?: string | undefined;
+     }[]>;
+ }
+diff --git a/node_modules/trading212-api/dist/src/api/metadata/MetadataAPI.js b/node_modules/trading212-api/dist/src/api/metadata/MetadataAPI.js
+index bcb7629..604d845 100644
+--- a/node_modules/trading212-api/dist/src/api/metadata/MetadataAPI.js
++++ b/node_modules/trading212-api/dist/src/api/metadata/MetadataAPI.js
+@@ -15,7 +15,7 @@ const MetadataInstrumentSchema = z.object({
+     maxOpenQuantity: z.number(),
+     minTradeQuantity: z.number(),
+     name: z.string(),
+-    shortname: z.union([z.string(), z.undefined()]),
++    shortName: z.union([z.string(), z.undefined()]),
+     ticker: z.string(),
+     type: INSTRUMENT_TYPE,
+     workingScheduleId: z.number(),
+diff --git a/node_modules/trading212-api/dist/src/api/order/OrderAPI.js b/node_modules/trading212-api/dist/src/api/order/OrderAPI.js
+index d009096..082f773 100644
+--- a/node_modules/trading212-api/dist/src/api/order/OrderAPI.js
++++ b/node_modules/trading212-api/dist/src/api/order/OrderAPI.js
+@@ -67,28 +67,33 @@ export class OrderAPI {
+         return id ? OrderSchema.parse(response.data) : z.array(OrderSchema).parse(response.data);
+     }
+     async cancelOrder(id) {
++        throw new Error('Forbidden by user');
+         const resource = `${OrderAPI.URL.ORDERS}/${id}`;
+         return this.apiClient.delete(resource);
+     }
+     async placeLimitOrder(order) {
++        throw new Error('Forbidden by user');
+         const resource = OrderAPI.URL.ORDERS_LIMIT;
+         const validated = PlaceLimitOrderSchema.parse(order);
+         const response = await this.apiClient.post(resource, validated);
+         return LimitOrderSchema.parse(response.data);
+     }
+     async placeMarketOrder(order) {
++        throw new Error('Forbidden by user');
+         const resource = OrderAPI.URL.ORDERS_MARKET;
+         const validated = PlaceMarketOrderSchema.parse(order);
+         const response = await this.apiClient.post(resource, validated);
+         return MarketOrderSchema.parse(response.data);
+     }
+     async placeStopOrder(order) {
++        throw new Error('Forbidden by user');
+         const resource = OrderAPI.URL.ORDERS_STOP;
+         const validated = PlaceStopOrderSchema.parse(order);
+         const response = await this.apiClient.post(resource, validated);
+         return StopOrderSchema.parse(response.data);
+     }
+     async placeStopLimitOrder(order) {
++        throw new Error('Forbidden by user');
+         const resource = OrderAPI.URL.ORDERS_STOP_LIMIT;
+         const validated = PlaceStopLimitOrderSchema.parse(order);
+         const response = await this.apiClient.post(resource, validated);
+diff --git a/node_modules/trading212-api/dist/src/api/pie/PieAPI.js b/node_modules/trading212-api/dist/src/api/pie/PieAPI.js
+index 50e4d16..a1119f4 100644
+--- a/node_modules/trading212-api/dist/src/api/pie/PieAPI.js
++++ b/node_modules/trading212-api/dist/src/api/pie/PieAPI.js
+@@ -61,23 +61,27 @@ export class PieAPI {
+         this.apiClient = apiClient;
+     }
+     async getPie(id) {
++        throw new Error('Forbidden by user');
+         const resource = id ? `${PieAPI.URL.PIES}/${id}` : PieAPI.URL.PIES;
+         const response = await this.apiClient.get(resource);
+         return id ? DetailedPieSchema.parse(response.data) : z.array(PieSchema).parse(response.data);
+     }
+     async createPie(request) {
++        throw new Error('Forbidden by user');
+         const resource = PieAPI.URL.PIES;
+         const validated = CreatePieSchema.parse(request);
+         const response = await this.apiClient.post(resource, validated);
+         return DetailedPieSchema.parse(response.data);
+     }
+     async updatePie(id, request) {
++        throw new Error('Forbidden by user');
+         const resource = `${PieAPI.URL.PIES}/${id}`;
+         const validated = CreatePieSchema.parse(request);
+         const response = await this.apiClient.post(resource, validated);
+         return DetailedPieSchema.parse(response.data);
+     }
+     async deletePie(id) {
++        throw new Error('Forbidden by user');
+         const resource = `${PieAPI.URL.PIES}/${id}`;
+         return this.apiClient.delete(resource);
+     }
+diff --git a/node_modules/trading212-api/dist/src/api/union.js b/node_modules/trading212-api/dist/src/api/union.js
+index ec90cdd..9a08162 100644
+--- a/node_modules/trading212-api/dist/src/api/union.js
++++ b/node_modules/trading212-api/dist/src/api/union.js
+@@ -58,6 +58,9 @@ export const DIVIDEND_TYPE = z.union([
+     z.literal('TAX_EVENT_1446F_FOR_PUBLICLY_TRADED_SECURITIES'),
+     z.literal('TRUST_DISTRIBUTION_MANUFACTURED_PAYMENT'),
+     z.literal('TRUST_DISTRIBUTION'),
++    z.literal('PROPERTY_INCOME_DISTRIBUTION'),
++    z.literal('DIVIDEND_MANUFACTURED_PAYMENT'),
++    z.literal('TAX_EXEMPTED'),
+ ]);
+ export const EXPORT_STATUS = z.union([
+     z.literal('Canceled'),

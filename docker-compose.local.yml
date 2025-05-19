@@ -1,0 +1,13 @@
+services:
+  web:
+    restart: unless-stopped
+    container_name: trading-dashboard-v2
+    env_file: .env
+    image: trading-dashboard-v2
+    ports:
+      - "3000:80"
+    mem_limit: 512m
+    logging:
+      options:
+        max-size: "100m"
+        max-file: "3"
