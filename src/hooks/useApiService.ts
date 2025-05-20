@@ -1,6 +1,6 @@
 import invariant from "tiny-invariant";
 import axios from "axios";
-import { getSession } from "next-auth/react";
+import { getSession, signOut } from "next-auth/react";
 
 import { useAccountStore } from "@/store";
 import { ClientApiService } from "@/lib/client/api";
@@ -16,9 +16,7 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      if (typeof window !== "undefined" && window.location.href !== "/login") {
-        window.location.href = "/login";
-      }
+      return signOut();
     }
     return Promise.reject(error);
   }
