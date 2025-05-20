@@ -19,7 +19,7 @@ export function useAuthorizedQuery<TData = unknown, TError = unknown>(
       if (!token || !userId) throw new Error("No auth");
       return queryFn({ token, userId });
     },
-    enabled: !!token && !!userId,
+    enabled: (!!token && !!userId) || !!options?.enabled,
     ...options,
   });
 }

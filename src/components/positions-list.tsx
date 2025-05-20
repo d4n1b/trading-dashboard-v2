@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React from "react";
 import {
   useReactTable,
   getCoreRowModel,
@@ -24,24 +24,28 @@ import {
 } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
 import { CompanyLogo } from "@/components/company-logo";
-import { PositionItemUIV2, UserAccountV2 } from "@/types";
+import { Button } from "@/components/ui/button";
+import { UserAccountV2, SnapshotPositionItemUIV2 } from "@/types";
 import { cn } from "@/lib/utils";
-import { Button } from "./ui/button";
 
 type PositionsListProps = {
   account: UserAccountV2;
-  positions: PositionItemUIV2[];
+  positions: SnapshotPositionItemUIV2[];
 };
 
 export function PositionsList({ positions }: PositionsListProps) {
-  const [globalFilter, setGlobalFilter] = useState("");
-  const [sorting, setSorting] = useState<SortingState>([]);
+  const [globalFilter, setGlobalFilter] = React.useState("");
+  const [sorting, setSorting] = React.useState<SortingState>([]);
 
-  const columns = useState<ColumnDef<PositionItemUIV2, unknown>[]>(() => [
+  const columns = React.useState<
+    ColumnDef<SnapshotPositionItemUIV2, unknown>[]
+  >(() => [
     {
       accessorKey: "companyName",
-      header: () => <span className="font-bold">Company</span>,
-      cell: (ctx: CellContext<PositionItemUIV2, unknown>) => {
+      header: () => (
+        <span className="text-xs font-bold uppercase">Company</span>
+      ),
+      cell: (ctx: CellContext<SnapshotPositionItemUIV2, unknown>) => {
         const row = ctx.row.original;
         return (
           <div className="flex min-w-0 gap-x-2">
@@ -93,54 +97,64 @@ export function PositionsList({ positions }: PositionsListProps) {
     },
     {
       accessorKey: "quantityDisplay",
-      header: () => <span className="font-bold">QTY</span>,
-      cell: (ctx: CellContext<PositionItemUIV2, unknown>) => {
+      header: () => <span className="text-xs font-bold uppercase">QTY</span>,
+      cell: (ctx: CellContext<SnapshotPositionItemUIV2, unknown>) => {
         const row = ctx.row.original;
         return <p className="text-right">{row.quantityDisplay}</p>;
       },
     },
     {
-      accessorKey: "averagePrice",
-      header: () => <span className="font-bold">Avg Price</span>,
-      cell: (ctx: CellContext<PositionItemUIV2, unknown>) => {
+      accessorKey: "averageWithCurrentPriceDisplay",
+      header: () => (
+        <span className="text-xs font-bold uppercase">Avg/Mkt Price</span>
+      ),
+      cell: (ctx: CellContext<SnapshotPositionItemUIV2, unknown>) => {
         const row = ctx.row.original;
-        return <p className="text-right">{row.averagePriceDisplay}</p>;
-      },
-    },
-    {
-      accessorKey: "currentPrice",
-      header: () => <span className="font-bold">Market Price</span>,
-      cell: (ctx: CellContext<PositionItemUIV2, unknown>) => {
-        const row = ctx.row.original;
-        return <p className="text-right">{row.currentPriceDisplay}</p>;
+        return (
+          <p className="text-right">{row.averageWithCurrentPriceDisplay}</p>
+        );
       },
     },
     {
       accessorKey: "invested",
-      header: () => <span className="font-bold">Invested</span>,
-      cell: (ctx: CellContext<PositionItemUIV2, unknown>) => {
+      header: () => (
+        <span className="text-xs font-bold uppercase">Invested</span>
+      ),
+      cell: (ctx: CellContext<SnapshotPositionItemUIV2, unknown>) => {
         const row = ctx.row.original;
         return <p className="text-right">{row.investedDisplay}</p>;
       },
     },
     {
       accessorKey: "investedPercentage",
-      header: () => <span className="font-bold">Portfolio %</span>,
-      cell: (ctx: CellContext<PositionItemUIV2, unknown>) => {
+      header: () => (
+        <span className="text-xs font-bold uppercase">Portfolio %</span>
+      ),
+      cell: (ctx: CellContext<SnapshotPositionItemUIV2, unknown>) => {
         const row = ctx.row.original;
         return <p className="text-right">{row.investedPercentageDisplay}</p>;
       },
     },
     {
+      accessorKey: "dividendsDisplay",
+      header: () => (
+        <span className="text-xs font-bold uppercase">Dividends</span>
+      ),
+      cell: (ctx: CellContext<SnapshotPositionItemUIV2, unknown>) => {
+        const row = ctx.row.original;
+        return <p className="text-right">{row.dividendsDisplay}</p>;
+      },
+    },
+    {
       accessorKey: "result",
-      header: () => <span className="font-bold">Result</span>,
-      cell: (ctx: CellContext<PositionItemUIV2, unknown>) => {
+      header: () => <span className="text-xs font-bold uppercase">Result</span>,
+      cell: (ctx: CellContext<SnapshotPositionItemUIV2, unknown>) => {
         const row = ctx.row.original;
         return (
           <p
             className={cn(
-              "text-right",
-              row.result >= 0 ? "text-green-600" : "text-red-600"
+              "text-right"
+              // row.result >= 0 ? "text-green-600" : "text-red-600"
             )}
           >
             {row.resultDisplay}
@@ -163,7 +177,7 @@ export function PositionsList({ positions }: PositionsListProps) {
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     globalFilterFn: (
-      row: TanstackRow<PositionItemUIV2>,
+      row: TanstackRow<SnapshotPositionItemUIV2>,
       columnId: string,
       filterValue: string
     ) => {
@@ -195,15 +209,15 @@ export function PositionsList({ positions }: PositionsListProps) {
           />
         </div>
       </div>
-      <div className="overflow-x-auto rounded border bg-card">
+      <div className="overflow-x-auto rounded border">
         <Table>
           <TableHeader>
             {table
               .getHeaderGroups()
-              .map((headerGroup: HeaderGroup<PositionItemUIV2>) => (
+              .map((headerGroup: HeaderGroup<SnapshotPositionItemUIV2>) => (
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map(
-                    (header: Header<PositionItemUIV2, unknown>) => (
+                    (header: Header<SnapshotPositionItemUIV2, unknown>) => (
                       <TableHead
                         key={header.id}
                         className="cursor-pointer select-none p-3"
@@ -237,7 +251,7 @@ export function PositionsList({ positions }: PositionsListProps) {
           <TableBody>
             {table
               .getRowModel()
-              .rows.map((row: TanstackRow<PositionItemUIV2>) => (
+              .rows.map((row: TanstackRow<SnapshotPositionItemUIV2>) => (
                 <TableRow key={row.id}>
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id} className="p-3">

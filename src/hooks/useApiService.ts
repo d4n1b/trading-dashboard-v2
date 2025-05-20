@@ -4,6 +4,8 @@ import { getSession } from "next-auth/react";
 
 import { useAccountStore } from "@/store";
 import { ClientApiService } from "@/lib/client/api";
+import { UIMapper } from "@/lib/ui-mapper";
+import { AccountSnapshotUIV2, DividendItemV2 } from "@/types";
 import { useAuthorizedQuery } from "./useAuthorizedQuery";
 
 const api = axios.create({
@@ -48,15 +50,32 @@ export const useGetAccountDividends = () => {
   invariant(accountSelected, "Missing accountSelected");
 
   return useAuthorizedQuery(["dividends", accountSelected.id], async () =>
-    apiService.getAccountDividends(accountSelected)
+    apiService
+      .getAccountDividends(accountSelected)
+      .then((dividends) =>
+        dividends.map((dividend) =>
+          UIMapper.dividend(accountSelected, dividend)
+        )
+      )
   );
 };
 
-export const useGetAccountSnapshot = () => {
+export const useGetAccountSnapshot = ({
+  dividends,
+}: {
+  dividends: DividendItemV2[] | undefined;
+}) => {
   const { accountSelected } = useAccountStore();
   invariant(accountSelected, "Missing accountSelected");
 
-  return useAuthorizedQuery(["accountSnapshot", accountSelected.id], async () =>
-    apiService.getAccountSnapshot(accountSelected)
+  return useAuthorizedQuery(
+    ["accountSnapshot", accountSelected.id],
+    async (): Promise<AccountSnapshotUIV2 | null> =>
+      apiService.getAccountSnapshot(accountSelected).then((snapshot) => {
+        return !snapshot || !dividends
+          ? null
+          : UIMapper.accountSnapshot(accountSelected, snapshot, dividends);
+      }),
+    { enabled: !!dividends }
   );
 };

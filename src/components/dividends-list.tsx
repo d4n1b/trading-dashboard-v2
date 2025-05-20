@@ -148,7 +148,7 @@ export function DividendsList({ account, dividends }: DividendsListProps) {
           </div>
         )}
       </div>
-      <div className="overflow-x-auto rounded border bg-card">
+      <div className="overflow-x-auto rounded border">
         <Table>
           <TableHeader>
             {table

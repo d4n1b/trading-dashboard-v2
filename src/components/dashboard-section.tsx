@@ -19,7 +19,7 @@ export function DashboardSection() {
   const { data: dividends, isLoading: isDividendsLoading } =
     useGetAccountDividends();
   const { data: accountSnapshot, isLoading: isSnapshotLoading } =
-    useGetAccountSnapshot();
+    useGetAccountSnapshot({ dividends });
 
   const [tabSelected, setTabSelected] = React.useState<TabValue>("portfolio");
 

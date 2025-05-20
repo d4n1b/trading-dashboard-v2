@@ -64,6 +64,7 @@ export type PositionItemUIV2 = PositionItemV2 & {
   countryOfOrigin: string;
   averagePriceDisplay: string;
   currentPriceDisplay: string;
+  averageWithCurrentPriceDisplay: string;
   invested: number;
   quantityDisplay: string;
   investedDisplay: string;
@@ -71,6 +72,11 @@ export type PositionItemUIV2 = PositionItemV2 & {
   investedPercentageDisplay: string;
   result: number;
   resultDisplay: string;
+};
+
+export type SnapshotPositionItemUIV2 = PositionItemUIV2 & {
+  dividends: number;
+  dividendsDisplay: string;
 };
 
 export type AccountSnapshotV2 = {
@@ -93,5 +99,5 @@ export type AccountSnapshotV2 = {
 };
 
 export type AccountSnapshotUIV2 = Omit<AccountSnapshotV2, "positions"> & {
-  positions: PositionItemUIV2[];
+  positions: SnapshotPositionItemUIV2[];
 };
