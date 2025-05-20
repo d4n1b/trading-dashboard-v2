@@ -12,7 +12,7 @@ import {
   HeaderGroup,
   Header,
 } from "@tanstack/react-table";
-import { Search, ChevronDown, ChevronUp, ChevronsUpDown } from "lucide-react";
+import { Search } from "lucide-react";
 
 import { Input } from "@/components/ui/input";
 import {
@@ -21,11 +21,18 @@ import {
   TableCell,
   TableHead,
   TableHeader,
+  TableHeaderSorter,
   TableRow,
 } from "@/components/ui/table";
 import { CompanyLogo } from "@/components/company-logo";
 import { DividendItemUIV2, UserAccountV2 } from "@/types";
 import { toCurrency, parseCurrencyCode } from "@/lib/currency";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 type DividendsListProps = {
   account: UserAccountV2;
@@ -40,7 +47,9 @@ export function DividendsList({ account, dividends }: DividendsListProps) {
     () => [
       {
         accessorKey: "companyName",
-        header: () => <span className="font-bold">Company</span>,
+        header: () => (
+          <span className="text-xs font-bold uppercase">Company</span>
+        ),
         cell: (ctx: CellContext<DividendItemUIV2, unknown>) => {
           const row = ctx.row.original;
           return (
@@ -63,7 +72,18 @@ export function DividendsList({ account, dividends }: DividendsListProps) {
       },
       {
         accessorKey: "paidOnDisplay",
-        header: () => <span className="font-bold">Paid on</span>,
+        header: () => (
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <span className="text-xs font-bold uppercase">Paid on</span>
+              </TooltipTrigger>
+              <TooltipContent>
+                <span>Date when the dividend was paid</span>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        ),
         cell: (ctx: CellContext<DividendItemUIV2, unknown>) => {
           const row = ctx.row.original;
           return <span>{row.paidOnDisplay}</span>;
@@ -71,7 +91,18 @@ export function DividendsList({ account, dividends }: DividendsListProps) {
       },
       {
         accessorKey: "amountDisplay",
-        header: () => <span className="font-bold">Amount</span>,
+        header: () => (
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <span className="text-xs font-bold uppercase">Amount</span>
+              </TooltipTrigger>
+              <TooltipContent>
+                <span>Total dividend payment received</span>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        ),
         cell: (ctx: CellContext<DividendItemUIV2, unknown>) => {
           const row = ctx.row.original;
           return <p className="text-right">{row.amountDisplay}</p>;
@@ -171,15 +202,7 @@ export function DividendsList({ account, dividends }: DividendsListProps) {
                             header.column.columnDef.header,
                             header.getContext()
                           )}
-                          <span className="flex h-4 w-4 items-center justify-center">
-                            {header.column.getIsSorted() === "asc" && (
-                              <ChevronDown className="self-start" />
-                            )}
-                            {header.column.getIsSorted() === "desc" && (
-                              <ChevronUp className="self-end" />
-                            )}
-                            {!header.column.getIsSorted() && <ChevronsUpDown />}
-                          </span>
+                          <TableHeaderSorter header={header} />
                         </span>
                       </TableHead>
                     )

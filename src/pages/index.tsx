@@ -8,7 +8,7 @@ import { AccountProvider } from "@/providers/AccountProvider";
 export default function Home() {
   return (
     <SessionProvider>
-      <div className="min-h-full bg-orange-100">
+      <div className="min-h-full">
         <Header />
         <AccountProvider>
           <div className="mx-auto max-w-7xl p-8">

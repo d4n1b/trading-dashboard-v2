@@ -1,6 +1,8 @@
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
+import { Header } from "@tanstack/react-table";
+import { ChevronDown, ChevronsUpDown, ChevronUp } from "lucide-react";
 
 function Table({ className, ...props }: React.ComponentProps<"table">) {
   return (
@@ -24,6 +26,28 @@ function TableHeader({ className, ...props }: React.ComponentProps<"thead">) {
       className={cn("[&_tr]:border-b", className)}
       {...props}
     />
+  );
+}
+
+function TableHeaderSorter<T, R>({
+  header,
+  className,
+  ...props
+}: React.ComponentProps<"div"> & { header: Header<T, R> }) {
+  return (
+    <span
+      data-slot="table-header-sorter"
+      className={cn("flex h-4 w-4 items-center justify-center ml-1", className)}
+      {...props}
+    >
+      {header.column.getIsSorted() === "asc" && (
+        <ChevronDown className="self-start" />
+      )}
+      {header.column.getIsSorted() === "desc" && (
+        <ChevronUp className="self-end" />
+      )}
+      {!header.column.getIsSorted() && <ChevronsUpDown />}
+    </span>
   );
 }
 
@@ -105,6 +129,7 @@ function TableCaption({
 export {
   Table,
   TableHeader,
+  TableHeaderSorter,
   TableBody,
   TableFooter,
   TableHead,

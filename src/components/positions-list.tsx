@@ -12,7 +12,7 @@ import {
   HeaderGroup,
   Header,
 } from "@tanstack/react-table";
-import { Search, ChevronDown, ChevronUp, ChevronsUpDown } from "lucide-react";
+import { Search } from "lucide-react";
 
 import {
   Table,
@@ -20,13 +20,20 @@ import {
   TableCell,
   TableHead,
   TableHeader,
+  TableHeaderSorter,
   TableRow,
 } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
 import { CompanyLogo } from "@/components/company-logo";
 import { Button } from "@/components/ui/button";
 import { UserAccountV2, SnapshotPositionItemUIV2 } from "@/types";
-import { cn } from "@/lib/utils";
+import { cn, getValueTrendClassName } from "@/lib/utils";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 type PositionsListProps = {
   account: UserAccountV2;
@@ -96,17 +103,18 @@ export function PositionsList({ positions }: PositionsListProps) {
       },
     },
     {
-      accessorKey: "quantityDisplay",
-      header: () => <span className="text-xs font-bold uppercase">QTY</span>,
-      cell: (ctx: CellContext<SnapshotPositionItemUIV2, unknown>) => {
-        const row = ctx.row.original;
-        return <p className="text-right">{row.quantityDisplay}</p>;
-      },
-    },
-    {
       accessorKey: "averageWithCurrentPriceDisplay",
       header: () => (
-        <span className="text-xs font-bold uppercase">Avg/Mkt Price</span>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <span className="text-xs font-bold uppercase">Avg/Mkt Price</span>
+            </TooltipTrigger>
+            <TooltipContent>
+              <span>Average purchase price / Current market price</span>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       ),
       cell: (ctx: CellContext<SnapshotPositionItemUIV2, unknown>) => {
         const row = ctx.row.original;
@@ -116,9 +124,37 @@ export function PositionsList({ positions }: PositionsListProps) {
       },
     },
     {
+      accessorKey: "quantityDisplay",
+      header: () => (
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <span className="text-xs font-bold uppercase">QTY</span>
+            </TooltipTrigger>
+            <TooltipContent>
+              <span>Number of shares held</span>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      ),
+      cell: (ctx: CellContext<SnapshotPositionItemUIV2, unknown>) => {
+        const row = ctx.row.original;
+        return <p className="text-right">{row.quantityDisplay}</p>;
+      },
+    },
+    {
       accessorKey: "invested",
       header: () => (
-        <span className="text-xs font-bold uppercase">Invested</span>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <span className="text-xs font-bold uppercase">Invested</span>
+            </TooltipTrigger>
+            <TooltipContent>
+              <span>Total amount invested (Quantity × Average Price)</span>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       ),
       cell: (ctx: CellContext<SnapshotPositionItemUIV2, unknown>) => {
         const row = ctx.row.original;
@@ -128,7 +164,16 @@ export function PositionsList({ positions }: PositionsListProps) {
     {
       accessorKey: "investedPercentage",
       header: () => (
-        <span className="text-xs font-bold uppercase">Portfolio %</span>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <span className="text-xs font-bold uppercase">Portfolio %</span>
+            </TooltipTrigger>
+            <TooltipContent>
+              <span>Percentage of total portfolio value</span>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       ),
       cell: (ctx: CellContext<SnapshotPositionItemUIV2, unknown>) => {
         const row = ctx.row.original;
@@ -136,9 +181,18 @@ export function PositionsList({ positions }: PositionsListProps) {
       },
     },
     {
-      accessorKey: "dividendsDisplay",
+      accessorKey: "dividends",
       header: () => (
-        <span className="text-xs font-bold uppercase">Dividends</span>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <span className="text-xs font-bold uppercase">Dividends</span>
+            </TooltipTrigger>
+            <TooltipContent>
+              <span>Total dividends received from this position</span>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       ),
       cell: (ctx: CellContext<SnapshotPositionItemUIV2, unknown>) => {
         const row = ctx.row.original;
@@ -147,17 +201,46 @@ export function PositionsList({ positions }: PositionsListProps) {
     },
     {
       accessorKey: "result",
-      header: () => <span className="text-xs font-bold uppercase">Result</span>,
+      header: () => (
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <span className="text-xs font-bold uppercase">Gain/Loss</span>
+            </TooltipTrigger>
+            <TooltipContent>
+              <span>Unrealized profit/loss (Market Value - Invested)</span>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      ),
       cell: (ctx: CellContext<SnapshotPositionItemUIV2, unknown>) => {
         const row = ctx.row.original;
         return (
-          <p
-            className={cn(
-              "text-right"
-              // row.result >= 0 ? "text-green-600" : "text-red-600"
-            )}
-          >
+          <p className={cn("text-right", getValueTrendClassName(row.result))}>
             {row.resultDisplay}
+          </p>
+        );
+      },
+    },
+    {
+      accessorKey: "roi",
+      header: () => (
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <span className="text-xs font-bold uppercase">ROI</span>
+            </TooltipTrigger>
+            <TooltipContent>
+              <span>Return on Investment (Gain/Loss + Dividends)</span>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      ),
+      cell: (ctx: CellContext<SnapshotPositionItemUIV2, unknown>) => {
+        const row = ctx.row.original;
+        return (
+          <p className={cn("text-right", getValueTrendClassName(row.roi))}>
+            {row.roiDisplay}
           </p>
         );
       },
@@ -232,15 +315,7 @@ export function PositionsList({ positions }: PositionsListProps) {
                             header.column.columnDef.header,
                             header.getContext()
                           )}
-                          <span className="flex h-4 w-4 items-center justify-center">
-                            {header.column.getIsSorted() === "asc" && (
-                              <ChevronDown className="self-start" />
-                            )}
-                            {header.column.getIsSorted() === "desc" && (
-                              <ChevronUp className="self-end" />
-                            )}
-                            {!header.column.getIsSorted() && <ChevronsUpDown />}
-                          </span>
+                          <TableHeaderSorter header={header} />
                         </span>
                       </TableHead>
                     )

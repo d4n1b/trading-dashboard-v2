@@ -77,6 +77,8 @@ export type PositionItemUIV2 = PositionItemV2 & {
 export type SnapshotPositionItemUIV2 = PositionItemUIV2 & {
   dividends: number;
   dividendsDisplay: string;
+  roi: number;
+  roiDisplay: string;
 };
 
 export type AccountSnapshotV2 = {

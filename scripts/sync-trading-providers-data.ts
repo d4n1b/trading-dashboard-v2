@@ -12,7 +12,8 @@ import { UserAccountV2 } from "@/types";
 // - Be able to call this function from NextJS cron: fetch instruments file & this script
 // - [x] Add finviz & yahoo links
 // - [x] Add dividends to portfolio table
-// - [ ] Check calculations & conversion estimations
+// - [x] Check calculations & conversion estimations
+// - [ ] Check portfolio percentage calculation
 // - [ ] Pull positions history
 // - [ ] Add snapshot calendar
 //

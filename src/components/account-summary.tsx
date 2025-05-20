@@ -2,7 +2,7 @@ import React from "react";
 import { Eye, Clock, PieChart, Coins } from "lucide-react";
 
 import { usePrivacyStore } from "@/store";
-import { cn } from "@/lib/utils";
+import { cn, getValueTrendClassName } from "@/lib/utils";
 import { AccountSnapshotV2, DividendItemUIV2, UserAccountV2 } from "@/types";
 import { toCurrency } from "@/lib/currency";
 
@@ -36,7 +36,6 @@ export function AccountSummary({
   const { currencyCode } = account.metadata;
   const { balance, syncedOn, positions } = accountSnapshot;
   const pplPercentage = (balance.ppl / balance.invested) * 100;
-  const isPositive = balance.ppl >= 0;
 
   return (
     <section className="w-full">
@@ -50,8 +49,8 @@ export function AccountSummary({
         />
         <span>{obfuscateValue(balance.total, currencyCode)}</span>
       </div>
-      <div className="flex flex-wrap gap-x-6 gap-y-1 mt-1 text-[15px]">
-        <div className="flex flex-col min-w-[90px]">
+      <div className="flex flex-wrap gap-x-4 gap-y-1 mt-1 text-[15px]">
+        <div className="flex flex-col">
           <span className="text-xs text-muted-foreground">Invested</span>
           <span className="font-medium">
             {obfuscateValue(balance.invested, currencyCode)}
@@ -60,10 +59,7 @@ export function AccountSummary({
         <div className="flex flex-col min-w-[110px]">
           <span className="text-xs text-muted-foreground">Return</span>
           <span
-            className={cn(
-              "font-medium",
-              isPositive ? "text-green-600" : "text-red-500"
-            )}
+            className={cn("font-medium", getValueTrendClassName(balance.ppl))}
           >
             {obfuscateValue(balance.ppl, currencyCode)}
             <span className="ml-1 text-xs font-normal">
@@ -71,28 +67,28 @@ export function AccountSummary({
             </span>
           </span>
         </div>
-        <div className="flex flex-col min-w-[90px]">
+        <div className="flex flex-col">
           <span className="text-xs text-muted-foreground">Free funds</span>
           <span className="font-medium text-green-600">
             {obfuscateValue(balance.free, currencyCode)}
           </span>
         </div>
-        <div className="flex flex-col min-w-[90px]">
+        <div className="flex flex-col">
+          <span className="text-xs text-muted-foreground flex items-center gap-1">
+            <Coins className="h-3 w-3" />
+            Dividends
+          </span>
+          <span className="font-medium text-green-600">
+            {obfuscateValue(totalDividends, currencyCode)}
+          </span>
+        </div>
+        <div className="flex flex-col">
           <span className="text-xs text-muted-foreground flex items-center gap-1">
             <PieChart className="h-3 w-3" />
             Positions
           </span>
           <span className="font-medium">
             {privacy ? "••" : positions.length}
-          </span>
-        </div>
-        <div className="flex flex-col min-w-[90px]">
-          <span className="text-xs text-muted-foreground flex items-center gap-1">
-            <Coins className="h-3 w-3" />
-            Dividends
-          </span>
-          <span className="font-medium">
-            {obfuscateValue(totalDividends, currencyCode)}
           </span>
         </div>
       </div>

@@ -10,23 +10,23 @@ import {
   PositionItemV2,
   UserAccountV2,
 } from "@/types";
-import { parseCurrencyCode, toCurrency } from "@/lib/currency";
+import { toCurrency } from "@/lib/currency";
+import { orderBy, sortBy } from "lodash";
 
 export class UIMapper {
   static dividend = (
     account: UserAccountV2,
     dividend: DividendItemV2
   ): DividendItemUIV2 => {
+    const { currencyCode } = account.metadata;
+
     return {
       ...dividend,
       paidOnDisplay: formatDate(
         dividend.paidOn,
         config.DATE_FORMAT_ISO_DATETIME
       ),
-      amountDisplay: toCurrency(
-        dividend.amount,
-        parseCurrencyCode(account.metadata.currencyCode)
-      ),
+      amountDisplay: toCurrency(dividend.amount, currencyCode),
     };
   };
 
@@ -35,13 +35,15 @@ export class UIMapper {
     position: PositionItemV2
   ): PositionItemUIV2 => {
     const invested = position.quantity * position.averagePrice;
-    const result =
-      position.quantity * (position.currentPrice - position.averagePrice);
-    const currencyCode = parseCurrencyCode(
-      position.currencyCode ?? account.metadata.currencyCode
+    const { currencyCode } = account.metadata;
+    const averagePriceDisplay = toCurrency(
+      position.averagePrice,
+      position.currencyCode
     );
-    const averagePriceDisplay = toCurrency(position.averagePrice, currencyCode);
-    const currentPriceDisplay = toCurrency(position.currentPrice, currencyCode);
+    const currentPriceDisplay = toCurrency(
+      position.currentPrice,
+      position.currencyCode
+    );
 
     return {
       ...position,
@@ -58,11 +60,11 @@ export class UIMapper {
       ].join("/"),
       quantityDisplay: position.quantity.toFixed(2),
       invested,
-      investedDisplay: toCurrency(invested, currencyCode),
+      investedDisplay: toCurrency(invested, position.currencyCode),
       investedPercentage: 0, // This will be calculated after we have all positions
       investedPercentageDisplay: "0%", // This will be calculated after we have all positions
-      result,
-      resultDisplay: toCurrency(result, currencyCode),
+      result: position.ppl,
+      resultDisplay: toCurrency(position.ppl, currencyCode),
     };
   };
 
@@ -90,19 +92,23 @@ export class UIMapper {
       const invested = uiPosition.invested;
       const investedPercentage = (invested / totalInvested) * 100;
       const dividends = dividendsByTicker.get(position.ticker) || 0;
+      const roi = uiPosition.ppl + dividends;
+      const { currencyCode } = account.metadata;
 
       return {
         ...uiPosition,
         dividends,
-        dividendsDisplay: toCurrency(dividends, account.metadata.currencyCode),
+        dividendsDisplay: toCurrency(dividends, currencyCode),
         investedPercentage,
         investedPercentageDisplay: `${investedPercentage.toFixed(2)}%`,
+        roi,
+        roiDisplay: toCurrency(roi, currencyCode),
       };
     });
 
     return {
       ...snapshot,
-      positions,
+      positions: orderBy(positions, ["companyName"], ["asc"]),
     };
   };
 }

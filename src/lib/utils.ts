@@ -45,3 +45,8 @@ export function downloadCsv(csv: string, filename: string) {
   link.click();
   document.body.removeChild(link);
 }
+
+export function getValueTrendClassName(value: number) {
+  if (!value) return "";
+  return value >= 0 ? "text-green-600" : "text-red-600";
+}
