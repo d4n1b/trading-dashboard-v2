@@ -2,11 +2,12 @@ import axios from "axios";
 import PQueue from "p-queue";
 import ms from "ms";
 import { addDays, format } from "date-fns";
+import pick from "lodash/pick";
 
 import { ClientApiService } from "@/lib/client/api";
 import { ProviderFactory } from "@/lib/providers/providerFactory";
 import { createLogger } from "@/lib/logger";
-import { UserAccountV2 } from "@/types";
+import { ExchangeRateApiResponse, UserAccountV2 } from "@/types";
 
 // NEXT:
 // - Be able to call this function from NextJS cron: fetch instruments file & this script
@@ -14,7 +15,7 @@ import { UserAccountV2 } from "@/types";
 // - [x] Add dividends to portfolio table
 // - [x] Check calculations & conversion estimations
 // - [x] Add snapshot calendar
-// - [ ] Check portfolio percentage calculation
+// - [x] Check portfolio percentage calculation
 // - [ ] Pull positions history
 //
 // NICE TO HAVE:
@@ -26,10 +27,14 @@ if (!process.env.NEXT_PUBLIC_API_TOKEN) {
 if (!process.env.NEXT_PUBLIC_API_URL) {
   throw new Error("Env variable NEXT_PUBLIC_API_URL is required");
 }
+if (!process.env.NEXT_PUBLIC_EXCHANGE_RATE_API_KEY) {
+  throw new Error("Env variable NEXT_PUBLIC_EXCHANGE_RATE_API_KEY is required");
+}
 
 const env = {
-  baseUrl: process.env.NEXT_PUBLIC_API_URL,
-  token: process.env.NEXT_PUBLIC_API_TOKEN,
+  apiBaseUrl: process.env.NEXT_PUBLIC_API_URL,
+  apiToken: process.env.NEXT_PUBLIC_API_TOKEN,
+  exchangeRateApiToken: process.env.NEXT_PUBLIC_EXCHANGE_RATE_API_KEY,
 };
 
 const logger = createLogger({
@@ -41,6 +46,13 @@ type SyncStats = {
   dividendsFailed: number;
   positionsProcessed: number;
   positionsFailed: number;
+};
+
+const getExchangeRate = async (token: string) => {
+  const { data } = await axios.get<ExchangeRateApiResponse>(
+    `https://v6.exchangerate-api.com/v6/${token}/latest/USD`
+  );
+  return data;
 };
 
 const createApiService = (baseUrl: string, token: string): ClientApiService => {
@@ -61,7 +73,7 @@ async function main() {
   };
 
   try {
-    const apiService = createApiService(env.baseUrl, env.token);
+    const apiService = createApiService(env.apiBaseUrl, env.apiToken);
     const accounts = await apiService.getAccounts();
 
     const queue = new PQueue({ concurrency: 5 });
@@ -83,9 +95,19 @@ async function main() {
         logger.info({ ...context, metadata }, "Account metadata updated");
       };
 
+      const exchangeRate = await getExchangeRate(env.exchangeRateApiToken);
+
       const startTime = performance.now();
       logger.info(context, "Initialising provider sync");
-      const provider = ProviderFactory.getProvider({ account, logger });
+      const provider = ProviderFactory.getProvider({
+        account,
+        logger,
+        exchangeRate: pick(exchangeRate.conversion_rates, [
+          "GBP",
+          "EUR",
+          "USD",
+        ]),
+      });
 
       // Check if we need to sync dividends
       const shouldSyncDividends = await provider.shouldSyncDividends();

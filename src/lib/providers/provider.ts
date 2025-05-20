@@ -5,17 +5,20 @@ import type {
   UserAccountV2,
   DividendItemPayloadV2,
   AccountSnapshotV2,
+  AccountSnapshotMetadataV2,
 } from "@/types";
 import { ClientApiService } from "@/lib/client/api";
 
 export type TradingProviderOptions = {
   account: UserAccountV2;
   logger: Logger;
+  exchangeRate: AccountSnapshotMetadataV2["exchangeRates"];
 };
 
 export abstract class TradingProvider {
   protected account: UserAccountV2;
   protected logger: Logger;
+  protected exchangeRate: AccountSnapshotMetadataV2["exchangeRates"];
   protected readonly syncConfig = {
     dividends: {
       frequencyDays: 7,
@@ -25,9 +28,10 @@ export abstract class TradingProvider {
     },
   };
 
-  constructor({ account, logger }: TradingProviderOptions) {
+  constructor({ account, logger, exchangeRate }: TradingProviderOptions) {
     this.account = account;
     this.logger = logger;
+    this.exchangeRate = exchangeRate;
   }
 
   getSyncConfig() {

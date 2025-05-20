@@ -6,6 +6,13 @@ export type UnwrapAsyncGenerator<T> = T extends AsyncGenerator<
   ? U
   : never;
 
+export type ExchangeRateApiResponse = {
+  base_code: string;
+  conversion_rates: {
+    [currencyCode: string]: number;
+  };
+};
+
 export type UserAccountV2 = {
   id: number;
   userId: number;
@@ -63,22 +70,36 @@ export type PositionItemUIV2 = PositionItemV2 & {
   yahooLink: string;
   countryOfOrigin: string;
   averagePriceDisplay: string;
+  averagePriceTotal: number;
+  averagePriceTotalDisplay: string;
+  averagePriceTotalPercentage: number;
+  averagePriceTotalPercentageDisplay: string;
   currentPriceDisplay: string;
+  currentPriceTotal: number;
+  currentPriceTotalDisplay: string;
+  currentPriceTotalPercentage: number;
+  currentPriceTotalPercentageDisplay: string;
   averageWithCurrentPriceDisplay: string;
-  invested: number;
   quantityDisplay: string;
-  investedDisplay: string;
-  investedPercentage: number;
-  investedPercentageDisplay: string;
-  result: number;
-  resultDisplay: string;
+  gainLoss: number;
+  gainLossDisplay: string;
 };
 
 export type SnapshotPositionItemUIV2 = PositionItemUIV2 & {
   dividends: number;
   dividendsDisplay: string;
+  gainLossPercentage: number;
+  gainLossPercentageDisplay: string;
   roi: number;
   roiDisplay: string;
+  roiPercentage: number;
+  roiPercentageDisplay: string;
+  portfolioPercentage: number;
+  portfolioPercentageDisplay: string;
+};
+
+export type AccountSnapshotMetadataV2 = {
+  exchangeRates: Record<string, number>;
 };
 
 export type AccountSnapshotV2 = {
@@ -94,9 +115,7 @@ export type AccountSnapshotV2 = {
     pieCash: number;
     blocked: number;
   };
-  metadata: {
-    exchangeRates?: Record<string, number>;
-  };
+  metadata: AccountSnapshotMetadataV2;
   positions: PositionItemV2[];
 };
 

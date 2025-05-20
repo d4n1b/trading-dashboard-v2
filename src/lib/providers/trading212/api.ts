@@ -81,7 +81,9 @@ export class Trading212Provider extends TradingProvider {
         pieCash: account.pieCash,
         blocked: account.blocked ?? 0,
       },
-      metadata: {},
+      metadata: {
+        exchangeRates: this.exchangeRate,
+      },
       positions: [],
     };
 
@@ -89,7 +91,8 @@ export class Trading212Provider extends TradingProvider {
       snapshot.positions.push({
         type: this.instrumentsMap[position.ticker]?.type ?? "",
         isin: this.instrumentsMap[position.ticker]?.isin ?? "",
-        currencyCode: this.instrumentsMap[position.ticker]?.currencyCode ?? "",
+        currencyCode:
+          this.instrumentsMap[position.ticker]?.currencyCode ?? "USD",
         companyName:
           this.instrumentsMap[position.ticker]?.name ?? position.ticker,
         internalTicker: position.ticker,
