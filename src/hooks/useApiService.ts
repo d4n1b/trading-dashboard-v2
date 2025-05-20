@@ -60,20 +60,42 @@ export const useGetAccountDividends = () => {
 
 export const useGetAccountSnapshot = ({
   dividends,
+  syncedOn,
 }: {
   dividends: DividendItemV2[] | undefined;
+  syncedOn?: string;
 }) => {
   const { accountSelected } = useAccountStore();
   invariant(accountSelected, "Missing accountSelected");
 
   return useAuthorizedQuery(
-    ["accountSnapshot", accountSelected.id],
+    ["accountSnapshot", accountSelected.id, syncedOn],
     async (): Promise<AccountSnapshotUIV2 | null> =>
-      apiService.getAccountSnapshot(accountSelected).then((snapshot) => {
-        return !snapshot || !dividends
-          ? null
-          : UIMapper.accountSnapshot(accountSelected, snapshot, dividends);
-      }),
+      apiService
+        .getAccountSnapshots(accountSelected, { syncedOn })
+        .then((snapshots) => {
+          if (!snapshots.length || !dividends) return null;
+          return UIMapper.accountSnapshot(
+            accountSelected,
+            snapshots[0],
+            dividends
+          );
+        }),
     { enabled: !!dividends }
+  );
+};
+
+export const useGetAccountSnapshots = () => {
+  const { accountSelected } = useAccountStore();
+  invariant(accountSelected, "Missing accountSelected");
+
+  return useAuthorizedQuery(
+    ["accountSnapshots", accountSelected.id],
+    async (): Promise<Date[]> =>
+      apiService
+        .getAccountSnapshots(accountSelected)
+        .then((snapshots) =>
+          snapshots.map((snapshot) => new Date(snapshot.syncedOn))
+        )
   );
 };

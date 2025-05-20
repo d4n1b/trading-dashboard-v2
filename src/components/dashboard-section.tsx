@@ -6,24 +6,38 @@ import { Separator } from "@/components/ui/separator";
 import { AccountSummary } from "@/components/account-summary";
 import { DividendsList } from "@/components/dividends-list";
 import { PositionsList } from "@/components/positions-list";
+import { SnapshotCalendar } from "@/components/snapshot-calendar";
 import { useAccountStore } from "@/store";
 import {
   useGetAccountDividends,
   useGetAccountSnapshot,
+  useGetAccountSnapshots,
 } from "@/hooks/useApiService";
 
 type TabValue = "portfolio" | "dividends";
 
 export function DashboardSection() {
   const { accountSelected } = useAccountStore();
+  invariant(accountSelected, "Missing accountSelected");
+
+  const { data: availableSnapshots } = useGetAccountSnapshots();
+  const [selectedDate, setSelectedDate] = React.useState<Date>();
   const { data: dividends, isLoading: isDividendsLoading } =
     useGetAccountDividends();
   const { data: accountSnapshot, isLoading: isSnapshotLoading } =
-    useGetAccountSnapshot({ dividends });
+    useGetAccountSnapshot({
+      dividends,
+      syncedOn: selectedDate?.toISOString(),
+    });
+
+  // Set the initial date to the latest snapshot
+  React.useEffect(() => {
+    if (availableSnapshots?.length && !selectedDate) {
+      setSelectedDate(availableSnapshots[0]);
+    }
+  }, [availableSnapshots, selectedDate]);
 
   const [tabSelected, setTabSelected] = React.useState<TabValue>("portfolio");
-
-  invariant(accountSelected, "Missing accountSelected");
 
   if (isDividendsLoading || isSnapshotLoading) {
     return (
@@ -41,11 +55,17 @@ export function DashboardSection() {
 
   return (
     <div className="space-y-6">
-      <AccountSummary
-        account={accountSelected}
-        accountSnapshot={accountSnapshot}
-        dividends={dividends}
-      />
+      <div className="flex items-start justify-between">
+        <AccountSummary
+          account={accountSelected}
+          accountSnapshot={accountSnapshot}
+          dividends={dividends}
+        />
+        <SnapshotCalendar
+          selectedDate={selectedDate}
+          onDateSelect={setSelectedDate}
+        />
+      </div>
       <Separator />
       <div>
         <Tabs

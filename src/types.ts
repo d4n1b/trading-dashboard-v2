@@ -103,3 +103,8 @@ export type AccountSnapshotV2 = {
 export type AccountSnapshotUIV2 = Omit<AccountSnapshotV2, "positions"> & {
   positions: SnapshotPositionItemUIV2[];
 };
+
+export type AccountSnapshotQueryParams = {
+  accountId?: number;
+  syncedOn?: string;
+};

@@ -5,6 +5,7 @@ import {
   DividendItemPayloadV2,
   DividendItemV2,
   UserAccountV2,
+  AccountSnapshotQueryParams,
 } from "@/types";
 
 export class ClientApiService {
@@ -66,15 +67,15 @@ export class ClientApiService {
     return data;
   }
 
-  async getAccountSnapshot(
+  async getAccountSnapshots(
     account: UserAccountV2,
-    params?: AxiosRequestConfig["params"]
-  ): Promise<AccountSnapshotV2 | null> {
+    params?: AccountSnapshotQueryParams
+  ): Promise<AccountSnapshotV2[]> {
     const { data } = await this.api.get<AccountSnapshotV2[]>(
-      `/users/${account.userId}/accounts/${account.id}/snapshots`,
+      `/users/${account.userId}/accounts/${account.id}/snapshots?_sort=syncedOn&_order=desc`,
       { params }
     );
-    return data[0] ?? null;
+    return data ?? null;
   }
 
   async createAccountSnapshot(

@@ -1,4 +1,5 @@
 import { formatDate } from "date-fns";
+import orderBy from "lodash/orderBy";
 
 import { config, tickerFinvizTickerMap } from "@/config";
 import {
@@ -11,7 +12,6 @@ import {
   UserAccountV2,
 } from "@/types";
 import { toCurrency } from "@/lib/currency";
-import { orderBy, sortBy } from "lodash";
 
 export class UIMapper {
   static dividend = (

@@ -118,7 +118,7 @@ export abstract class TradingProvider {
     };
 
     try {
-      const existingSnapshot = await apiService.getAccountSnapshot(
+      const [existingSnapshot] = await apiService.getAccountSnapshots(
         this.account,
         {
           accountId: this.account.id,

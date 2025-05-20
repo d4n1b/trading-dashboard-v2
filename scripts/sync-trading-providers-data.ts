@@ -13,9 +13,9 @@ import { UserAccountV2 } from "@/types";
 // - [x] Add finviz & yahoo links
 // - [x] Add dividends to portfolio table
 // - [x] Check calculations & conversion estimations
+// - [x] Add snapshot calendar
 // - [ ] Check portfolio percentage calculation
 // - [ ] Pull positions history
-// - [ ] Add snapshot calendar
 //
 // NICE TO HAVE:
 // - Check `syncedOn` property to understand if today's been already fetched

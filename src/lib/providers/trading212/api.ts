@@ -89,8 +89,7 @@ export class Trading212Provider extends TradingProvider {
       snapshot.positions.push({
         type: this.instrumentsMap[position.ticker]?.type ?? "",
         isin: this.instrumentsMap[position.ticker]?.isin ?? "",
-        currencyCode:
-          this.instrumentsMap[position.ticker]?.currencyCode ?? null,
+        currencyCode: this.instrumentsMap[position.ticker]?.currencyCode ?? "",
         companyName:
           this.instrumentsMap[position.ticker]?.name ?? position.ticker,
         internalTicker: position.ticker,
