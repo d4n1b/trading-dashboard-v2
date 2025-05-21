@@ -7,6 +7,11 @@ import { AccountSummary } from "@/components/account-summary";
 import { DividendsList } from "@/components/dividends-list";
 import { PositionsList } from "@/components/positions-list";
 import { SnapshotCalendar } from "@/components/snapshot-calendar";
+import {
+  AccountSummarySkeleton,
+  PositionsListSkeleton,
+  DividendsListSkeleton,
+} from "@/components/skeletons";
 import { useAccountStore } from "@/store";
 import {
   useGetAccountDividends,
@@ -20,8 +25,9 @@ export function DashboardSection() {
   const { accountSelected } = useAccountStore();
   invariant(accountSelected, "Missing accountSelected");
 
-  const { data: availableSnapshots } = useGetAccountSnapshots();
   const [selectedDate, setSelectedDate] = React.useState<Date>();
+  const { data: availableSnapshots } = useGetAccountSnapshots();
+
   const { data: dividends, isLoading: isDividendsLoading } =
     useGetAccountDividends();
   const { data: accountSnapshot, isLoading: isSnapshotLoading } =
@@ -30,6 +36,9 @@ export function DashboardSection() {
       syncedOn: selectedDate?.toISOString(),
     });
 
+  const [tabSelected, setTabSelected] = React.useState<TabValue>("portfolio");
+  const isLoading = isDividendsLoading || isSnapshotLoading;
+
   // Set the initial date to the latest snapshot
   React.useEffect(() => {
     if (availableSnapshots?.length && !selectedDate) {
@@ -37,30 +46,21 @@ export function DashboardSection() {
     }
   }, [availableSnapshots, selectedDate]);
 
-  const [tabSelected, setTabSelected] = React.useState<TabValue>("portfolio");
-
-  if (isDividendsLoading || isSnapshotLoading) {
-    return (
-      <div className="flex items-center justify-center p-2">
-        <div className="text-muted-foreground text-xs">
-          Loading account summary...
-        </div>
-      </div>
-    );
-  }
-
-  if (!accountSnapshot || !dividends?.length) {
-    return null;
-  }
-
   return (
     <div className="space-y-6">
       <div className="flex items-start justify-between">
-        <AccountSummary
-          account={accountSelected}
-          accountSnapshot={accountSnapshot}
-          dividends={dividends}
-        />
+        {isLoading ? (
+          <AccountSummarySkeleton />
+        ) : (
+          accountSnapshot &&
+          dividends && (
+            <AccountSummary
+              account={accountSelected}
+              accountSnapshot={accountSnapshot}
+              dividends={dividends}
+            />
+          )
+        )}
         <SnapshotCalendar
           selectedDate={selectedDate}
           onDateSelect={setSelectedDate}
@@ -79,14 +79,29 @@ export function DashboardSection() {
               <TabsTrigger value="dividends">Dividends</TabsTrigger>
             </TabsList>
           </div>
-          <TabsContent value="portfolio" className="mt-5 w-full">
-            <PositionsList
-              account={accountSelected}
-              positions={accountSnapshot.positions}
-            />
+          <TabsContent value="portfolio" className="mt-2 w-full">
+            {isLoading ? (
+              <PositionsListSkeleton className="mt-2" />
+            ) : (
+              accountSnapshot && (
+                <PositionsList
+                  account={accountSelected}
+                  positions={accountSnapshot.positions}
+                />
+              )
+            )}
           </TabsContent>
-          <TabsContent value="dividends" className="mt-5 w-full">
-            <DividendsList account={accountSelected} dividends={dividends} />
+          <TabsContent value="dividends" className="mt-2 w-full">
+            {isLoading ? (
+              <DividendsListSkeleton className="mt-2" />
+            ) : (
+              dividends && (
+                <DividendsList
+                  account={accountSelected}
+                  dividends={dividends}
+                />
+              )
+            )}
           </TabsContent>
         </Tabs>
       </div>

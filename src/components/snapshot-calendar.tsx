@@ -67,6 +67,10 @@ export function SnapshotCalendar({
     [availableDates]
   );
 
+  React.useEffect(() => {
+    setDate(selectedDate);
+  }, [selectedDate]);
+
   return (
     <Popover>
       <PopoverTrigger asChild>

@@ -27,7 +27,7 @@ export function AccountSummary({
 
   const obfuscateValue = React.useCallback(
     (value: number, currency: string) => {
-      if (privacy) return "******";
+      if (privacy) return "••••••";
       return typeof value === "number" ? toCurrency(value, currency) : "-";
     },
     [privacy]
@@ -47,10 +47,10 @@ export function AccountSummary({
           )}
           onClick={togglePrivacy}
         />
-        <span>{obfuscateValue(balance.total, currencyCode)}</span>
+        <p>{obfuscateValue(balance.total, currencyCode)}</p>
       </div>
       <div className="flex flex-wrap gap-x-4 gap-y-1 mt-1 text-[15px]">
-        <div className="flex flex-col">
+        <div className="flex flex-col min-w-24">
           <span className="text-xs text-muted-foreground">Invested</span>
           <span className="font-medium">
             {obfuscateValue(balance.invested, currencyCode)}
@@ -67,13 +67,13 @@ export function AccountSummary({
             </span>
           </span>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col min-w-24">
           <span className="text-xs text-muted-foreground">Free funds</span>
           <span className="font-medium text-green-600">
             {obfuscateValue(balance.free, currencyCode)}
           </span>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col min-w-24">
           <span className="text-xs text-muted-foreground flex items-center gap-1">
             <Coins className="h-3 w-3" />
             Dividends
@@ -82,7 +82,7 @@ export function AccountSummary({
             {obfuscateValue(totalDividends, currencyCode)}
           </span>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col min-w-24">
           <span className="text-xs text-muted-foreground flex items-center gap-1">
             <PieChart className="h-3 w-3" />
             Positions
